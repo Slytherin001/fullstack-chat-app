@@ -9,3 +9,4 @@ export const connectToDatabase = async () => {
     console.log("Something went wrong", error);
   }
 };
+ 
