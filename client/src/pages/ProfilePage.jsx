@@ -4,9 +4,8 @@ import { Camera, Mail, User } from "lucide-react";
 import { formatDate, formatMessageTime } from "../lib/utils";
 
 const ProfilePage = () => {
-  const { authUser, isUpdatingProfile, updateProfile } =
-    useAuthStore();
-    console.log(authUser)
+  const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
+  console.log(authUser);
   const [selectedImage, setSelectedImage] = useState(null);
   const [name, setName] = useState(authUser?.fullName || "");
 
@@ -80,16 +79,14 @@ const ProfilePage = () => {
                   <User className="size-4" />
                   Full Name
                 </div>
-                {/* <p className="px-4 py-2.5 bg-base-200 rounded-lg border-b">
-                  {authUser?.fullName}
-                </p> */}
+
                 <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="px-4 py-2.5 bg-base-200 rounded-lg border-b w-full"
-                placeholder="Enter your full name"
-              />
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="px-4 py-2.5 bg-base-200 rounded-lg border-b w-full"
+                  placeholder="Enter your full name"
+                />
               </div>
               <div className="space-y-1.5">
                 <div className="text-sm text-zinc-400 flex items-center gap-2">
@@ -136,12 +133,12 @@ const ProfilePage = () => {
               </div>
             </div>
             <button
-            onClick={handleProfileUpdate}
-            className="btn btn-primary w-full"
-            disabled={isUpdatingProfile}
-          >
-            {isUpdatingProfile ? "Updating..." : "Save Changes"}
-          </button>
+              onClick={handleProfileUpdate}
+              className="btn btn-primary w-full"
+              disabled={isUpdatingProfile}
+            >
+              {isUpdatingProfile ? "Updating..." : "Save Changes"}
+            </button>
           </div>
         </div>
       </div>

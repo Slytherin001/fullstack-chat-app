@@ -97,14 +97,6 @@ const Sidebar = () => {
     };
   }, [getUsers, socket, updateUnreadCount]);
 
-  // const handleConversationClick = async (user) => {
-  //   setSelectedUser(user);
-  //   if (user?.lastMessage?.read === false) {
-  //     await useChatStore.getState().markMessageAsRead(user._id);
-  //     await useChatStore.getState().getUsers();
-  //   }
-  // };
-
   const handleConversationClick = async (user) => {
     const { markMessageAsRead, getUsers, setSelectedUser, updateUnreadCount } =
       useChatStore.getState();

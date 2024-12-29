@@ -3,79 +3,6 @@ import { getReceiverSocketId, io } from "../lib/socket.js";
 import Message from "../models/message.model.js";
 import User from "../models/user.model.js";
 
-// export const getUsersForSidebar = async (req, resp) => {
-//   try {
-//     const loggedInUserId = req.user?._id;
-//     if (!loggedInUserId) {
-//       return resp
-//         .status(400)
-//         .json({ success: false, message: "User not authenticated" });
-//     }
-
-//     const usersWithLastMessage = await User.aggregate([
-//       {
-//         $match: {
-//           _id: { $ne: loggedInUserId },
-//         },
-//       },
-//       {
-//         $lookup: {
-//           from: "messages",
-//           let: { userId: "$_id", loggedInUserId },
-//           pipeline: [
-//             {
-//               $match: {
-//                 $expr: {
-//                   $or: [
-//                     {
-//                       $and: [
-//                         { $eq: ["$senderId", "$$loggedInUserId"] },
-//                         { $eq: ["$receiverId", "$$userId"] },
-//                       ],
-//                     },
-//                     {
-//                       $and: [
-//                         { $eq: ["$senderId", "$$userId"] },
-//                         { $eq: ["$receiverId", "$$loggedInUserId"] },
-//                       ],
-//                     },
-//                   ],
-//                 },
-//               },
-//             },
-//             { $sort: { createdAt: -1 } },
-//             { $limit: 1 },
-//           ],
-//           as: "lastMessage",
-//         },
-//       },
-//       {
-//         $project: {
-//           fullName: 1,
-//           email: 1,
-//           profilePic: 1,
-//           lastMessage: { $arrayElemAt: ["$lastMessage", 0] },
-//         },
-//       },
-//       {
-//         $sort: { "lastMessage.createdAt": -1 },
-//       },
-//     ]);
-
-//     resp.status(200).json({
-//       success: true,
-//       usersWithLastMessage,
-//     });
-//   } catch (error) {
-//     console.error("Error in getUsersForSidebar:", error);
-//     return resp.status(500).json({
-//       success: false,
-//       message: "Internal server error",
-//     });
-//   }
-// };
-
-
 export const getUsersForSidebar = async (req, resp) => {
   try {
     const loggedInUserId = req.user?._id;
@@ -169,12 +96,6 @@ export const getUsersForSidebar = async (req, resp) => {
   }
 };
 
-
-
-
-
-
-
 export const getMessages = async (req, resp) => {
   try {
     const { id: userToChatId } = req.params;
@@ -209,7 +130,6 @@ export const sendMessage = async (req, resp) => {
       imageUrl = uploadResponse.secure_url;
     }
 
-   
     const newMessage = new Message({
       senderId,
       receiverId,
@@ -244,7 +164,7 @@ export const markMessagesAsRead = async (req, res) => {
     const { senderId } = req.body; // Sender ID
     const receiverId = req.user._id; // Logged-in user as receiver
 
-  const reuslt=  await Message.updateMany(
+    const reuslt = await Message.updateMany(
       { receiverId, read: false },
       { $set: { read: true } }
     );
@@ -258,4 +178,3 @@ export const markMessagesAsRead = async (req, res) => {
     });
   }
 };
-
