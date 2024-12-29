@@ -2,7 +2,6 @@ import User from "../models/user.model.js";
 import { decryptPassword, hashingPassword } from "../lib/hashing.password.js";
 import { generateToken } from "../lib/utils.js";
 import cloudinary from "../lib/cloudinary.js";
-import {mailer} from "../lib/email.config.js"
 
 export const signup = async (req, resp) => {
   const { fullName, email, password } = req.body;
@@ -24,14 +23,10 @@ export const signup = async (req, resp) => {
       });
     }
     
-    const verificationToken=Math.floor(100000+Math.random()*900000).toString()
-
     const newUser = new User({
       fullName,
       email,
       password: await hashingPassword(password),
-      verificationToken,
-      verificationTokenExpiresAt:Date.now() + 24*60*60*1000
     });
 
     if (newUser) {

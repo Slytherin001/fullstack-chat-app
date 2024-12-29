@@ -48,8 +48,8 @@ const SignUpPage = () => {
     e.preventDefault();
     const success = validateForm();
     if (success === true){
-      navigate("/verify-otp",{state:{fullName:formData.fullName,email:formData.email,password:formData.password}})
-      // signup(formData);
+      signup(formData);
+      navigate('/')
     }
   };
 

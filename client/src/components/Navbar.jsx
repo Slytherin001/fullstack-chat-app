@@ -58,23 +58,6 @@ const Navbar = () => {
                       {authUser?.fullName}
                     </span>
                   </Link>
-                  <details className="dropdown mr-10 relative">
-                    <summary className="btn btn-sm">
-                      <Bell />
-                      <span className="absolute -top-3 -right-5 bg-primary p-1 rounded-full text-primary-content">
-                        10+
-                      </span>
-                    </summary>
-
-                    <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                      <li>
-                        <a> Message from Md</a>
-                      </li>
-                      <li>
-                        <a>Item 2</a>
-                      </li>
-                    </ul>
-                  </details>
 
                   <Link
                     onClick={logout}

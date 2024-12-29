@@ -19,19 +19,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    isVerified:{
-      type:Boolean,
-      default:false
-    },
-    resetPasswordToken:String,
-    resetPasswordExpiresAt:Date,
-    verificationToken:String,
-    verificationTokenExpiresAt:Date
   },
   { timestamps: true }
 );
 
-
-const User=mongoose.model('User',userSchema);
+const User = mongoose.model("User", userSchema);
 
 export default User;
