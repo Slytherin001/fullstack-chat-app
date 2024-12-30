@@ -4,6 +4,7 @@ import { useChatStore } from "../store/useChatStore";
 import toast from "react-hot-toast";
 import { useAuthStore } from "../store/useAuthStore";
 import Picker from "emoji-picker-react";
+import "./messageInput.css"
 
 const MessageInput = () => {
   const [text, setText] = useState("");
@@ -83,6 +84,10 @@ const MessageInput = () => {
     setShowEmoji(false);
   };
 
+
+  
+  
+
   return (
     <>
       <div className="p-4 w-full">
@@ -111,31 +116,93 @@ const MessageInput = () => {
           </div>
         )}
 
-        <form onSubmit={handleSendMessage} className="flex items-center gap-2 ">
-          <div className="flex-1 flex items-center gap-2">
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleImageChange}
-            />
+        <form onSubmit={handleSendMessage}>
+          <div className="form-control">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={handleImageChange}
+                />
+                <button
+                  type="button"
+                  className={`absolute inset-y-5 left-0 pl-3 flex items-center 
+            ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+                  onClick={() => fileInputRef.current.click()}
+                >
+                  <Image className="size-5 mb-1" />
+                </button>
+              </div>
 
-            <button
-              type="button"
-              className={` sm:flex  btn btn-circle sm:text-sm
+              <textarea
+                type="text"
+                className="input input-bordered w-full pl-14 pr-24 resize-none overflow-y-auto"
+                placeholder="Type a message..."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage(e);
+                  }
+                }}
+                style={{
+                  paddingTop: "12px",
+                  paddingBottom: "12px",
+                  lineHeight: "20px",
+                }}
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowEmoji(!showEmoji)}
+                className="absolute inset-y-0 right-0 pr-20 hidden sm:block"
+              >
+                <Smile className="size-5 mb-2" />
+              </button>
+
+              <button
+                type="submit"
+                className={`absolute inset-y-0 right-0 pr-5 flex items-center mb-2 text-primary rounded-lg `}
+                disabled={!text.trim() && !imagePreview}
+              >
+                <Send className="size-5 send-icon" />
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {/* <div className="flex-1 flex items-center gap-2">
+            <div className="relative">
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+              />
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
+                <button
+                  type="button"
+                  className={` sm:flex  btn btn-circle sm:text-sm
                      ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
-              onClick={() => fileInputRef.current.click()}
-            >
-              <Image size={20} />
-            </button>
-            <input
-              type="text"
-              className="w-full input input-bordered rounded-lg input-sm sm:input-md"
-              placeholder="Type a message..."
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            />
+                  onClick={() => fileInputRef.current.click()}
+                >
+                  <Image size={20} />
+                </button>
+              </div>
+              <input
+                type="text"
+                className="input input-bordered w-full pl-10"
+                placeholder="Type a message..."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+              />
+            </div>
+
             <button
               type="button"
               onClick={() => setShowEmoji(!showEmoji)}
@@ -150,13 +217,10 @@ const MessageInput = () => {
             disabled={!text.trim() && !imagePreview}
           >
             <Send size={22} />
-          </button>
-        </form>
+          </button> */}
       </div>
     </>
   );
 };
 
 export default MessageInput;
-
-

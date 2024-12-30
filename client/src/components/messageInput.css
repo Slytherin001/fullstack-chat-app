@@ -1,0 +1,14 @@
+@media (max-width:480px){
+    textarea::placeholder{
+        font-size: 12px !important;
+    }
+    textarea{
+        font-size: 12px !important;
+        padding-right: 64px !important;
+    }
+    .send-icon{
+        width: 12px !important;
+        height: 12px !important;
+        font-size: 12px !important;
+    }
+}
